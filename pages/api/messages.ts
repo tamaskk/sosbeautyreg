@@ -9,6 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   let client;
   try {
+    // Connect to the database
     client = await connectToDatabase();
     const db = client.db('sosbeauty');
     const messages = db.collection('messages');
@@ -20,8 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .sort({ createdAt: -1 })
         .toArray();
 
-      res.status(200).json(allMessages);
-    } else if (req.method === 'PATCH') {
+      return res.status(200).json(allMessages);
+    } 
+    
+    if (req.method === 'PATCH') {
       const { id, read } = req.body;
 
       if (!id || typeof read !== 'boolean') {
@@ -37,8 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(404).json({ message: 'Message not found' });
       }
 
-      res.status(200).json({ message: 'Message updated successfully' });
-    } else if (req.method === 'DELETE') {
+      return res.status(200).json({ message: 'Message updated successfully' });
+    } 
+    
+    if (req.method === 'DELETE') {
       const { id } = req.query;
 
       if (!id || typeof id !== 'string') {
@@ -51,14 +56,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(404).json({ message: 'Message not found' });
       }
 
-      res.status(200).json({ message: 'Message deleted successfully' });
+      return res.status(200).json({ message: 'Message deleted successfully' });
     }
   } catch (error) {
     console.error('Error handling messages:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  } finally {
-    if (client) {
-      await client.close();
-    }
+    return res.status(500).json({ 
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error instanceof Error ? error.message : 'Unknown error' : undefined
+    });
   }
 } 

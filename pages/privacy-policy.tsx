@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
         <h2>2. Adatkezelő</h2>
         <p>
           Név: SOS Beauty<br />
-          Székhely: [Cég székhelye]<br />
+          Székhely: 1161 Budapest Baross utca 101<br />
           Email: sosbeauty@outlook.hu
         </p>
 
@@ -95,6 +95,33 @@ export default function PrivacyPolicy() {
           Fenntartjuk a jogot, hogy ezt az adatvédelmi nyilatkozatot bármikor módosítsuk. 
           A változásokról értesítjük Önt a weboldalon keresztül.
         </p>
+
+        <div className="mt-8 space-y-4">
+          <h2 className="text-xl font-semibold">Letölthető dokumentumok</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a
+              href="/assets/Adatvédelmi nyilatkozat.pdf"
+              download
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Adatvédelmi Nyilatkozat
+            </a>
+            <a
+              href="/assets/suti.pdf"
+              download
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Cookie Szabályzat
+            </a>
+            <a
+              href="/assets/általánosszf.pdf"
+              download
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Általános Szerződési Feltételek
+            </a>
+          </div>
+        </div>
 
         <p className="mt-8 text-sm text-gray-500">
           Utolsó frissítés: {new Date().toLocaleDateString('hu-HU')}

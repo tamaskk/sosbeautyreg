@@ -503,14 +503,14 @@ export default function Home() {
 
             {address.country && address.city && address.postalCode && address.street && address.houseNumber && (
               <div className="relative">
-                <AddressMap
+              <AddressMap
                   ref={addressMapRef}
-                  country={address.country}
-                  city={address.city}
-                  postalCode={address.postalCode}
-                  street={address.street}
-                  houseNumber={address.houseNumber}
-                  onCoordinatesUpdate={handleCoordinatesUpdate}
+                country={address.country}
+                city={address.city}
+                postalCode={address.postalCode}
+                street={address.street}
+                houseNumber={address.houseNumber}
+                onCoordinatesUpdate={handleCoordinatesUpdate}
                   onFetchStart={() => setIsFetchingCoordinates(true)}
                 />
                 {isFetchingCoordinates && (

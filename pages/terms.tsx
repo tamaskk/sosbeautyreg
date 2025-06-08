@@ -13,9 +13,8 @@ export default function Terms() {
         <h2>2. A Szolgáltató adatai</h2>
         <p>
           Név: SOS Beauty<br />
-          Székhely: [Cég székhelye]<br />
-          Adószám: [Adószám]<br />
-          Cégjegyzékszám: [Cégjegyzékszám]<br />
+          Székhely: 1161 Budapest Baross utca 101<br />
+          Adószám: 91029559-1-42<br />
           Email: sosbeauty@outlook.hu
         </p>
 

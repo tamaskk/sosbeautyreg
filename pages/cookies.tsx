@@ -1,99 +1,109 @@
-export default function CookiePolicy() {
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import Head from 'next/head';
+
+export default function Cookies() {
+  const { t } = useTranslation('common');
+
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Cookie Szabályzat</h1>
-      
-      <div className="prose prose-indigo max-w-none">
-        <h2>1. Bevezetés</h2>
-        <p>
-          A SOS Beauty (továbbiakban: "mi", "minket", "miénk") weboldalán cookie-kat használunk 
-          a felhasználói élmény javítása érdekében. Ez a szabályzat tájékoztatást nyújt a cookie-k 
-          használatáról és az Ön választási lehetőségeiről.
-        </p>
+    <>
+      <Head>
+        <title>Süti Szabályzat | SOS Beauty</title>
+        <meta name="description" content="SOS Beauty süti szabályzata és adatkezelési tájékoztató" />
+      </Head>
 
-        <h2>2. Mi a cookie?</h2>
-        <p>
-          A cookie-k kis méretű szöveges fájlok, amelyeket a weboldal az Ön eszközén tárol. 
-          Ezek segítenek a weboldal működésében és információt szolgáltatnak a weboldal tulajdonosának.
-        </p>
+      <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="prose prose-lg max-w-none">
+          <h1>Süti Szabályzat és Adatkezelési Tájékoztató</h1>
 
-        <h2>3. Cookie-k típusai</h2>
-        <p>A weboldalunk a következő típusú cookie-kat használja:</p>
+          <h2>1. Adatbázis Szolgáltató</h2>
+          <p>
+            Weboldalunk adatbázis szolgáltatója a MongoDB Atlas (továbbiakban: MongoDB), amely a MongoDB Inc. által üzemeltetett felhőalapú adatbázis szolgáltatás.
+          </p>
+          <p>
+            <strong>MongoDB Inc. adatai:</strong>
+          </p>
+          <ul>
+            <li>Székhely: 1633 Broadway, 38th Floor, New York, NY 10019, USA</li>
+            <li>Adatvédelmi irányelvek: <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">https://www.mongodb.com/legal/privacy-policy</a></li>
+            <li>Adatvédelmi tisztviselő: <a href="mailto:privacy@mongodb.com">privacy@mongodb.com</a></li>
+          </ul>
 
-        <h3>3.1. Feltétlenül szükséges cookie-k</h3>
-        <p>
-          Ezek a cookie-k nélkülözhetetlenek a weboldal működéséhez. Lehetővé teszik az alapvető 
-          funkciók használatát, mint például a bejelentkezés és a biztonság. Ezek a cookie-k nem 
-          kapcsolódnak az Ön személyes adataihoz.
-        </p>
+          <h3>MongoDB Adatkezelési Részletek:</h3>
+          <ul>
+            <li>
+              <strong>Adatkezelés helye:</strong> Az adatok az Európai Unión belül, MongoDB európai adatközpontjaiban tárolódnak (AWS európai régiók)
+            </li>
+            <li>
+              <strong>Adatkezelés jogalapja:</strong> Az adatkezelés a szolgáltatás nyújtása érdekében történik, a MongoDB felhőalapú adatbázis szolgáltatás keretében
+            </li>
+            <li>
+              <strong>Adatmegőrzés:</strong> Az adatok a szolgáltatás használatának időtartamára, valamint a jogszabályi megőrzési kötelezettségeknek megfelelően tárolódnak
+            </li>
+            <li>
+              <strong>Adatbiztonság:</strong> MongoDB Atlas megfelel az ISO 27001, SOC 2 Type II, és PCI DSS szabványoknak, biztosítva az adatok biztonságát
+            </li>
+          </ul>
 
-        <h3>3.2. Teljesítmény cookie-k</h3>
-        <p>
-          Ezek a cookie-k segítenek megérteni, hogyan használják a látogatók a weboldalt. 
-          Segítenek a weboldal teljesítményének mérésében és javításában.
-        </p>
+          <h2>2. Süti (Cookie) Használat</h2>
+          <p>
+            Weboldalunk sütiket (cookie-kat) használ a felhasználói élmény javítása és a szolgáltatások biztosítása érdekében. A sütik kis szöveges fájlok, amelyek a felhasználó eszközén tárolódnak.
+          </p>
 
-        <h3>3.3. Funkcionális cookie-k</h3>
-        <p>
-          Ezek a cookie-k lehetővé teszik a weboldal számára, hogy emlékezzen az Ön választásaira 
-          (például felhasználónév, nyelv, régió), és továbbfejlesztett, személyre szabott funkciókat nyújtson.
-        </p>
+          <h3>2.1. Süti Kategóriák</h3>
+          <ul>
+            <li>
+              <strong>Szükséges sütik:</strong> Ezek a sütik elengedhetetlenek a weboldal működéséhez. Lehetővé teszik az alapvető funkciók használatát, például a bejelentkezést és a biztonságos területek elérését.
+            </li>
+            <li>
+              <strong>Analitikai sütik:</strong> Segítenek nekünk megérteni, hogyan használják a látogatók a weboldalunkat. Az ezekből származó információk segítenek a weboldal fejlesztésében és optimalizálásában.
+            </li>
+            <li>
+              <strong>Marketing sütik:</strong> Ezek a sütik a reklámok személyre szabására és a marketing kampányok hatékonyságának mérésére szolgálnak.
+            </li>
+          </ul>
 
-        <h3>3.4. Célzó cookie-k</h3>
-        <p>
-          Ezek a cookie-k a reklámpartnereink által a weboldalunkon keresztül helyezhetők el. 
-          Ezek a vállalatok használhatják ezeket a cookie-kat az Ön érdeklődési körének felépítéséhez 
-          és más weboldalakon releváns reklámok megjelenítéséhez.
-        </p>
+          <h3>2.2. Harmadik Fél Sütik</h3>
+          <p>
+            A MongoDB Atlas szolgáltatás használata során a MongoDB saját sütiket használhat a szolgáltatás működéséhez és biztonságához. Ezek a sütik a MongoDB adatvédelmi irányelveinek megfelelően kerülnek kezelésre.
+          </p>
 
-        <h2>4. Cookie-k kezelése</h2>
-        <p>
-          A legtöbb böngésző automatikusan elfogadja a cookie-kat, de Ön módosíthatja a böngésző 
-          beállításait, hogy letiltsa a cookie-kat. Kérjük, vegye figyelembe, hogy a cookie-k 
-          letiltása hatással lehet a weboldal használhatóságára.
-        </p>
+          <h2>3. Adatvédelmi Jogok</h2>
+          <p>
+            Felhasználóink a következő jogokkal rendelkeznek:
+          </p>
+          <ul>
+            <li>Hozzáférési jog</li>
+            <li>Helyesbítéshez való jog</li>
+            <li>Törléshez való jog</li>
+            <li>Az adatkezelés korlátozásához való jog</li>
+            <li>Adathordozhatósághoz való jog</li>
+            <li>Tiltakozáshoz való jog</li>
+            <li>Az adatkezeléshez való hozzájárulás visszavonásához való jog</li>
+          </ul>
 
-        <h2>5. Harmadik felek cookie-i</h2>
-        <p>
-          A weboldalunkon harmadik felek (például Google Analytics, Facebook) cookie-it is használunk. 
-          Ezek a cookie-k a harmadik felek által kezeltek, és a saját adatvédelmi irányelveik szerint 
-          működnek.
-        </p>
+          <h2>4. Kapcsolat</h2>
+          <p>
+            Ha kérdése van a süti használattal vagy az adatkezeléssel kapcsolatban, kérjük, vegye fel velünk a kapcsolatot:
+          </p>
+          <ul>
+            <li>Email: sosbeauty@outlook.hu</li>
+          </ul>
 
-        <h2>6. Cookie-k élettartama</h2>
-        <p>A weboldalunkon használt cookie-k élettartama:</p>
-        <ul>
-          <li>Munkamenet cookie-k: A böngésző bezárásakor törlődnek</li>
-          <li>Állandó cookie-k: Több hónapig vagy évig is érvényesek lehetnek</li>
-        </ul>
-
-        <h2>7. Cookie-k kezelése böngészőben</h2>
-        <p>
-          A cookie-k kezelését a böngésző beállításaiban tudja módosítani. A legtöbb böngészőben 
-          a következő lehetőségek közül választhat:
-        </p>
-        <ul>
-          <li>Cookie-k elfogadása</li>
-          <li>Cookie-k elutasítása</li>
-          <li>Értesítés kérése cookie-k használatakor</li>
-        </ul>
-
-        <h2>8. Változások</h2>
-        <p>
-          Fenntartjuk a jogot, hogy ezt a cookie szabályzatot bármikor módosítsuk. 
-          A változásokról értesítjük Önt a weboldalon keresztül.
-        </p>
-
-        <h2>9. Kapcsolat</h2>
-        <p>
-          Ha kérdése van a cookie-k használatával kapcsolatban, kérjük, vegye fel velünk a kapcsolatot 
-          az sosbeauty@outlook.hu email címen.
-        </p>
-
-        <p className="mt-8 text-sm text-gray-500">
-          Utolsó frissítés: {new Date().toLocaleDateString('hu-HU')}
-        </p>
+          <p className="text-sm text-gray-600 mt-8">
+            Utolsó frissítés: {new Date().toLocaleDateString('hu-HU')}
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
-} 
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'hu', ['common'])),
+    },
+  };
+}; 

@@ -1,0 +1,28 @@
+{
+  "cookie": {
+    "banner": {
+      "message": "Ez a weboldal sütiket használ a felhasználói élmény javítása érdekében. A sütik használatával kapcsolatos részletes információkat a süti szabályzatban találja.",
+      "learnMore": "További információk",
+      "customize": "Testreszabás",
+      "necessary": "Csak szükséges",
+      "acceptAll": "Elfogadom mindet"
+    },
+    "settings": {
+      "title": "Süti beállítások",
+      "cancel": "Mégse",
+      "save": "Mentés",
+      "necessary": {
+        "title": "Szükséges sütik",
+        "description": "Ezek a sütik elengedhetetlenek a weboldal működéséhez, és nem kapcsolhatók ki a rendszerünkben."
+      },
+      "analytics": {
+        "title": "Analitikai sütik",
+        "description": "Segítenek nekünk megérteni, hogyan használják a látogatók a weboldalunkat, hogy javíthassuk a szolgáltatásainkat."
+      },
+      "marketing": {
+        "title": "Marketing sütik",
+        "description": "Ezek a sütik segítenek a reklámok személyre szabásában és a marketing kampányok hatékonyságának mérésében."
+      }
+    }
+  }
+} 

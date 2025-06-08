@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { X, Loader2, Download, Copy, Check, Mail, Trash2 } from 'lucide-react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 const CATEGORY_LABELS = {
   eyelash: 'Pillás',
@@ -527,7 +528,7 @@ function MessageModal({ message, onClose, onDelete, onMarkAsRead }: {
 
 export default function Admin() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { data: session, status } = useSession();
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('forms');
   const [isLoading, setIsLoading] = useState(false);
@@ -547,13 +548,11 @@ export default function Admin() {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
 
   useEffect(() => {
-    // Check if already authenticated
-    const auth = localStorage.getItem('adminAuth');
-    if (auth === 'true') {
-      setIsAuthenticated(true);
+    // If user is authenticated, fetch data
+    if (status === 'authenticated') {
       fetchData();
     }
-  }, []);
+  }, [status]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -597,21 +596,20 @@ export default function Admin() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would validate against a secure backend
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      localStorage.setItem('adminAuth', 'true');
-      fetchData();
-    } else {
+    const result = await signIn('credentials', {
+      password,
+      redirect: false,
+    });
+
+    if (result?.error) {
       toast.error('Érvénytelen jelszó');
     }
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('adminAuth');
+    signOut({ callbackUrl: '/' });
   };
 
   const handleCustomCodeSubmit = async (e: React.FormEvent) => {
@@ -753,7 +751,15 @@ export default function Admin() {
     }
   };
 
-  if (!isAuthenticated) {
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (status === 'unauthenticated') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">

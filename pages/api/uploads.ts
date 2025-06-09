@@ -3,6 +3,7 @@ import { connectToDatabase } from '../../lib/mongodb';
 import formidable, { Fields, Files, Part } from 'formidable';
 import { promises as fs } from 'fs';
 import path from 'path';
+import os from 'os';
 import { v4 as uuidv4 } from 'uuid';
 import { storage } from '../../lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -18,8 +19,8 @@ const MAX_VIDEO_SIZE = 25 * 1024 * 1024; // 25MB
 const MAX_IMAGES = 10;
 const MAX_VIDEOS = 3;
 
-// Create temporary uploads directory if it doesn't exist
-const tempUploadsDir = path.join(process.cwd(), 'tmp', 'uploads');
+// Use system's temporary directory
+const tempUploadsDir = path.join(os.tmpdir(), 'sosbeauty-uploads');
 
 // Ensure the upload directory exists
 async function ensureUploadDir() {
@@ -50,7 +51,13 @@ async function uploadToFirebase(file: formidable.File, folder: string): Promise<
     const url = await getDownloadURL(storageRef);
     
     // Clean up the temporary file
-    await fs.unlink(file.filepath).catch(console.error);
+    try {
+      await fs.unlink(file.filepath);
+      console.log('Temporary file cleaned up:', file.filepath);
+    } catch (cleanupError) {
+      console.error('Error cleaning up temporary file:', cleanupError);
+      // Don't throw the error, just log it
+    }
     
     return {
       url,
@@ -61,6 +68,13 @@ async function uploadToFirebase(file: formidable.File, folder: string): Promise<
     };
   } catch (error) {
     console.error('Firebase upload error:', error);
+    // Clean up the temporary file even if upload fails
+    try {
+      await fs.unlink(file.filepath);
+      console.log('Temporary file cleaned up after error:', file.filepath);
+    } catch (cleanupError) {
+      console.error('Error cleaning up temporary file after error:', cleanupError);
+    }
     throw error;
   }
 }

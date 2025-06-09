@@ -121,19 +121,107 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Get price values
-    const minPrice = e.currentTarget.minPrice.value;
-    const maxPrice = e.currentTarget.maxPrice.value;
+    // Get form values
+    const form = e.currentTarget as HTMLFormElement;
+    const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const phone = (form.elements.namedItem('phone') as HTMLInputElement).value.trim();
+    const accessCode = (form.elements.namedItem('accessCode') as HTMLInputElement).value.trim();
+    const instagram = (form.elements.namedItem('instagram') as HTMLInputElement).value.trim();
+    const facebook = (form.elements.namedItem('facebook') as HTMLInputElement).value.trim();
+    const tiktok = (form.elements.namedItem('tiktok') as HTMLInputElement).value.trim();
+    const category = (form.elements.namedItem('category') as HTMLSelectElement).value;
+    const minPrice = (form.elements.namedItem('minPrice') as HTMLInputElement).value;
+    const maxPrice = (form.elements.namedItem('maxPrice') as HTMLInputElement).value;
 
-    // Validate prices if both are provided
+    // Validate name
+    if (name.length < 2) {
+      toast.error('A névnek legalább 2 karakternek kell lennie');
+      return;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Kérjük, adjon meg egy érvényes email címet');
+      return;
+    }
+
+    // Validate phone (Hungarian format)
+    const phoneRegex = /^(\+36|06)[0-9]{9}$/;
+    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+      toast.error('Kérjük, adjon meg egy érvényes magyar telefonszámot (+36 vagy 06 kezdetű)');
+      return;
+    }
+
+    // Validate access code
+    if (accessCode.length !== 8) {
+      toast.error('A hozzáférési kódnak pontosan 8 karakternek kell lennie');
+      return;
+    }
+
+    // Validate social media handles if provided
+    if (instagram && !instagram.startsWith('@')) {
+      toast.error('Az Instagram felhasználónévnek @ jellel kell kezdődnie');
+      return;
+    }
+
+    if (facebook && !facebook.includes('facebook.com/')) {
+      toast.error('A Facebook linknek tartalmaznia kell a facebook.com/ részt');
+      return;
+    }
+
+    if (tiktok && !tiktok.startsWith('@')) {
+      toast.error('A TikTok felhasználónévnek @ jellel kell kezdődnie');
+      return;
+    }
+
+    // Validate category
+    if (!category) {
+      toast.error('Kérjük, válasszon kategóriát');
+      return;
+    }
+
+    // Validate prices if provided
     if (minPrice && maxPrice && parseInt(maxPrice) <= parseInt(minPrice)) {
       toast.error('A maximális árnak nagyobbnak kell lennie a minimális árnál');
       return;
     }
 
-    // Check if we have all required address fields
-    if (!address.country || !address.city || !address.postalCode || !address.street || !address.houseNumber) {
-      toast.error('Kérjük, töltse ki az összes kötelező cím mezőt');
+    // Validate address fields
+    if (!address.country) {
+      toast.error('Kérjük, adja meg az országot');
+      return;
+    }
+
+    if (!address.city) {
+      toast.error('Kérjük, adja meg a várost');
+      return;
+    }
+
+    if (!address.postalCode || address.postalCode.length < 4) {
+      toast.error('Az irányítószámnak legalább 4 karakternek kell lennie');
+      return;
+    }
+
+    if (!address.street) {
+      toast.error('Kérjük, adja meg az utcát');
+      return;
+    }
+
+    if (!address.houseNumber) {
+      toast.error('Kérjük, adja meg a házszámot');
+      return;
+    }
+
+    // Validate media uploads
+    if (selectedImages.length === 0) {
+      toast.error('Kérjük, töltse fel legalább egy képet');
+      return;
+    }
+
+    if (mainImageIndex === null) {
+      toast.error('Kérjük, jelölje ki a fő képet');
       return;
     }
 

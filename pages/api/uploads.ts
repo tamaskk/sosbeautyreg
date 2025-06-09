@@ -20,7 +20,17 @@ const MAX_VIDEOS = 3;
 
 // Create temporary uploads directory if it doesn't exist
 const tempUploadsDir = path.join(process.cwd(), 'tmp', 'uploads');
-fs.mkdir(tempUploadsDir, { recursive: true }).catch(console.error);
+
+// Ensure the upload directory exists
+async function ensureUploadDir() {
+  try {
+    await fs.mkdir(tempUploadsDir, { recursive: true });
+    console.log('Upload directory created/verified at:', tempUploadsDir);
+  } catch (error) {
+    console.error('Error creating upload directory:', error);
+    throw new Error('Nem sikerült létrehozni a feltöltési könyvtárat. Kérjük, próbálja újra később.');
+  }
+}
 
 async function uploadToFirebase(file: formidable.File, folder: string): Promise<{ url: string; filename: string; originalName: string; size: number; type: string | null }> {
   try {
@@ -63,6 +73,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let client;
   try {
     console.log('Starting file upload process...');
+
+    // Ensure upload directory exists before proceeding
+    await ensureUploadDir();
 
     const form = formidable({
       uploadDir: tempUploadsDir,

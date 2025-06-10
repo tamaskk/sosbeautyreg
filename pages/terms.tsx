@@ -28,8 +28,7 @@ export default function Terms() {
         <h2>4. Regisztráció és hozzáférés</h2>
         <p>
           A szolgáltatás igénybevételéhez regisztráció szükséges. A regisztráció során megadott adatoknak 
-          valósnak és pontosnak kell lenniük. A hozzáférési kódot csak a Szolgáltató által jóváhagyott 
-          szépségipari szolgáltatók kaphatják meg.
+          valósnak és pontosnak kell lenniük. A szolgáltatást minden szépségipari szolgáltató igénybe veheti.
         </p>
 
         <h2>5. Felhasználói kötelezettségek</h2>

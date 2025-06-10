@@ -127,10 +127,6 @@ export default function Home() {
     const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
     const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
     const phone = (form.elements.namedItem('phone') as HTMLInputElement).value.trim();
-    const accessCode = (form.elements.namedItem('accessCode') as HTMLInputElement).value.trim();
-    const instagram = (form.elements.namedItem('instagram') as HTMLInputElement).value.trim();
-    const facebook = (form.elements.namedItem('facebook') as HTMLInputElement).value.trim();
-    const tiktok = (form.elements.namedItem('tiktok') as HTMLInputElement).value.trim();
     const category = (form.elements.namedItem('category') as HTMLSelectElement).value;
     const minPrice = (form.elements.namedItem('minPrice') as HTMLInputElement).value;
     const maxPrice = (form.elements.namedItem('maxPrice') as HTMLInputElement).value;
@@ -152,28 +148,6 @@ export default function Home() {
     const phoneRegex = /^(\+36|06)[0-9]{9}$/;
     if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
       toast.error('Kérjük, adjon meg egy érvényes magyar telefonszámot (+36 vagy 06 kezdetű)');
-      return;
-    }
-
-    // Validate access code
-    if (accessCode.length !== 8) {
-      toast.error('A hozzáférési kódnak pontosan 8 karakternek kell lennie');
-      return;
-    }
-
-    // Validate social media handles if provided
-    if (instagram && !instagram.startsWith('@')) {
-      toast.error('Az Instagram felhasználónévnek @ jellel kell kezdődnie');
-      return;
-    }
-
-    if (facebook && !facebook.includes('facebook.com/')) {
-      toast.error('A Facebook linknek tartalmaznia kell a facebook.com/ részt');
-      return;
-    }
-
-    if (tiktok && !tiktok.startsWith('@')) {
-      toast.error('A TikTok felhasználónévnek @ jellel kell kezdődnie');
       return;
     }
 
@@ -200,7 +174,7 @@ export default function Home() {
       return;
     }
 
-    if (!address.postalCode || address.postalCode.length < 4) {
+    if (!address.postalCode || address.postalCode.length < 3) {
       toast.error('Az irányítószámnak legalább 4 karakternek kell lennie');
       return;
     }
@@ -212,17 +186,6 @@ export default function Home() {
 
     if (!address.houseNumber) {
       toast.error('Kérjük, adja meg a házszámot');
-      return;
-    }
-
-    // Validate media uploads
-    if (selectedImages.length === 0) {
-      toast.error('Kérjük, töltse fel legalább egy képet');
-      return;
-    }
-
-    if (mainImageIndex === null) {
-      toast.error('Kérjük, jelölje ki a fő képet');
       return;
     }
 
@@ -312,17 +275,6 @@ export default function Home() {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">SOS Beauty Feltöltő Űrlap</h1>
               <p className="text-gray-600 mb-4">Jelentkezd be szépségipari szolgáltatásoddal</p>
-              <div className="bg-indigo-50 rounded-lg p-4 inline-block">
-                <p className="text-indigo-700 mb-2">
-                  Szükséged van hozzáférési kódra a szépségipari szolgáltatásod beküldéséhez?
-                </p>
-                <Link
-                  href="/register"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Hozzáférési Kód Kérése
-                </Link>
-              </div>
             </div>
 
             <div className="bg-white shadow rounded-lg p-6">
@@ -366,20 +318,6 @@ export default function Home() {
                     id="phone"
                     required
                     placeholder="+36 20 123 4567"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="accessCode" className="block text-sm font-medium text-gray-700">
-                    Hozzáférési Kód
-                  </label>
-                  <input
-                    type="text"
-                    name="accessCode"
-                    id="accessCode"
-                    required
-                    placeholder="8 karakteres kód"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
                   />
                 </div>
@@ -750,8 +688,7 @@ export default function Home() {
             <div className="flex justify-end">
               <button
                 type="submit"
-                // disabled={isSubmitting}
-                disabled={true}
+                disabled={isSubmitting}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
               >
                 {isSubmitting ? 'Beküldés...' : 'Beküldés'}

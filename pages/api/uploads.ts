@@ -114,7 +114,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'accessCode', 'category', 'country', 'city', 'postalCode', 'street'];
+    const requiredFields = ['name', 'email', 'phone', 'category', 'country', 'city', 'postalCode', 'street'];
     const missingFields = requiredFields.filter(field => !fields[field]?.[0]);
     
     if (missingFields.length > 0) {
@@ -138,30 +138,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Connect to database
     client = await connectToDatabase();
     const db = client.db('sosbeauty');
-
-    // Validate access code
-    const accessCode = fields.accessCode?.[0];
-    console.log('Validating access code:', accessCode);
-
-    const allCodes = await db.collection('codes').find({}).toArray();
-    console.log('All codes:', allCodes);
-
-    const codeDoc = await db.collection('codes').findOne({ code: accessCode });
-    console.log('Code doc:', codeDoc);
-    
-    if (!codeDoc) {
-      console.error('Invalid access code:', accessCode);
-      return res.status(400).json({ message: 'Érvénytelen hozzáférési kód' });
-    }
-
-    if (codeDoc.usedCount >= codeDoc.usageLimit) {
-      console.error('Access code limit reached:', { 
-        code: accessCode, 
-        usedCount: codeDoc.usedCount, 
-        usageLimit: codeDoc.usageLimit 
-      });
-      return res.status(400).json({ message: 'A hozzáférési kód elérte a használati limitet' });
-    }
 
     const category = fields.category?.[0];
     // Since your code document doesn't have allowedCategories, let's make it work with any category for now
@@ -242,7 +218,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       instagram: fields.instagram?.[0] || '',
       facebook: fields.facebook?.[0] || '',
       tiktok: fields.tiktok?.[0] || '',
-      accessCode,
       category,
       minPrice: fields.minPrice?.[0] || '',
       maxPrice: fields.maxPrice?.[0] || '',
@@ -270,12 +245,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Save upload to database
     const result = await db.collection('uploads').insertOne(upload);
-
-    // Increment usedCount for the access code
-    await db.collection('codes').updateOne(
-      { code: accessCode },
-      { $inc: { usedCount: 1 } }
-    );
 
     console.log('Upload process completed successfully');
 

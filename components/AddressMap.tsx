@@ -18,6 +18,8 @@ interface AddressMapProps {
   houseNumber: string;
   onCoordinatesUpdate: (coordinates: { lat: number; lng: number }) => void;
   onFetchStart?: () => void;
+  isAddressSearchButtonPressed: boolean;
+  setIsAddressSearchButtonPressed: (value: boolean) => void;
 }
 
 export interface AddressMapHandle {
@@ -34,7 +36,9 @@ const AddressMap = forwardRef<AddressMapHandle, AddressMapProps>(({
   street, 
   houseNumber, 
   onCoordinatesUpdate, 
-  onFetchStart 
+  onFetchStart,
+  isAddressSearchButtonPressed,
+  setIsAddressSearchButtonPressed
 }, ref) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -86,6 +90,7 @@ const AddressMap = forwardRef<AddressMapHandle, AddressMapProps>(({
           lat: feature.center[1],
           lng: feature.center[0]
         });
+        setIsAddressSearchButtonPressed(true);
       } else {
         console.log('No location found for address');
         setSelected(null);

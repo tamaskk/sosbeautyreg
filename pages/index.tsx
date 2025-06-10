@@ -32,6 +32,7 @@ export default function Home() {
     coordinates: null as { lat: number; lng: number } | null
   });
   const [isFetchingCoordinates, setIsFetchingCoordinates] = useState(false);
+  const [isAddressSearchButtonPressed, setIsAddressSearchButtonPressed] = useState(false);
   const addressMapRef = useRef<AddressMapHandle>(null);
 
   const validateFiles = (files: File[], type: 'image' | 'video') => {
@@ -138,15 +139,12 @@ export default function Home() {
     }
 
     // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!email.includes('@')) {
       toast.error('Kérjük, adjon meg egy érvényes email címet');
       return;
     }
 
-    // Validate phone (Hungarian format)
-    const phoneRegex = /^(\+36|06)[0-9]{9}$/;
-    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+    if (!phone) {
       toast.error('Kérjük, adjon meg egy érvényes magyar telefonszámot (+36 vagy 06 kezdetű)');
       return;
     }
@@ -538,6 +536,8 @@ export default function Home() {
                   postalCode={address.postalCode}
                   street={address.street}
                   houseNumber={address.houseNumber}
+                  isAddressSearchButtonPressed={isAddressSearchButtonPressed}
+                  setIsAddressSearchButtonPressed={setIsAddressSearchButtonPressed}
                   onCoordinatesUpdate={handleCoordinatesUpdate}
                     onFetchStart={() => setIsFetchingCoordinates(true)}
                   />
@@ -685,10 +685,20 @@ export default function Home() {
               </div>
             </div>
 
+            {
+              !isAddressSearchButtonPressed && (
+                <div className="bg-white shadow rounded-lg p-6">
+                  <h2 className="text-lg font-medium text-red-500 mb-4">
+                    Mielőtt beküldöd a profilodat, kattints a képernyőn lévő gombra, hogy a címedet meg tudjuk határozni.
+                  </h2>
+                </div>
+              )
+            }
+
             <div className="flex justify-end">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isAddressSearchButtonPressed}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
               >
                 {isSubmitting ? 'Beküldés...' : 'Beküldés'}

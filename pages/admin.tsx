@@ -557,19 +557,17 @@ export default function Admin() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const [uploadsRes, codesRes, messagesRes] = await Promise.all([
+      const [uploadsRes, messagesRes] = await Promise.all([
         fetch('/api/uploads-list'),
-        fetch('/api/codes'),
         fetch('/api/messages'),
       ]);
 
-      if (!uploadsRes.ok || !codesRes.ok || !messagesRes.ok) {
+      if (!uploadsRes.ok || !messagesRes.ok) {
         throw new Error('Failed to fetch data');
       }
 
-      const [uploadsData, codesData, messagesData] = await Promise.all([
+      const [uploadsData, messagesData] = await Promise.all([
         uploadsRes.json(),
-        codesRes.json(),
         messagesRes.json(),
       ]);
 
@@ -586,7 +584,6 @@ export default function Admin() {
       });
 
       setUploads(sortedUploads);
-      setCodes(codesData);
       setMessages(messagesData);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -612,34 +609,6 @@ export default function Admin() {
     signOut({ callbackUrl: '/' });
   };
 
-  const handleCustomCodeSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsGeneratingCode(true);
-
-    try {
-      const response = await fetch('/api/codes/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(customCodeForm),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate code');
-      }
-
-      const data = await response.json();
-      toast.success('Kód sikeresen generálva!');
-      fetchData();
-      setCustomCodeForm({ email: '', categories: [], usageLimit: 1, codeLength: 8 });
-    } catch (error) {
-      toast.error('Hiba történt a kód generálása során');
-    } finally {
-      setIsGeneratingCode(false);
-    }
-  };
-
   const handleDeleteUpload = async (id: string) => {
     try {
       const response = await fetch(`/api/uploads/${id}`, {
@@ -654,27 +623,6 @@ export default function Admin() {
       fetchData(); // Refresh the data
     } catch (error) {
       throw error; // Let the modal handle the error
-    }
-  };
-
-  const handleDeleteCode = async (code: string) => {
-    if (!confirm('Biztosan törölni szeretnéd ezt a kódot?')) {
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/codes/${code}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete code');
-      }
-
-      toast.success('Kód sikeresen törölve');
-      fetchData(); // Refresh the data
-    } catch (error) {
-      toast.error('Hiba történt a kód törlése során');
     }
   };
 
@@ -831,26 +779,6 @@ export default function Admin() {
               Űrlapok
             </button>
             <button
-              onClick={() => setActiveTab('codes')}
-              className={`${
-                activeTab === 'codes'
-                  ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
-            >
-              Kódok
-            </button>
-            <button
-              onClick={() => setActiveTab('customCode')}
-              className={`${
-                activeTab === 'customCode'
-                  ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
-            >
-              Egyedi Kód Generáló
-            </button>
-            <button
               onClick={() => setActiveTab('messages')}
               className={`${
                 activeTab === 'messages'
@@ -972,163 +900,6 @@ export default function Admin() {
                   </table>
                 </div>
               )}
-            </div>
-          )}
-
-          {activeTab === 'codes' && (
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">
-                Kódok Áttekintése
-              </h2>
-              {isLoading ? (
-                <p className="text-gray-500">Betöltés...</p>
-              ) : codes.length === 0 ? (
-                <p className="text-gray-500">Nincsenek kódok</p>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Email
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Kód
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Használatok Száma
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Használati Limit
-                        </th>
-                        <th
-                          scope="col"
-                          className="relative px-6 py-3"
-                        >
-                          <span className="sr-only">Műveletek</span>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {codes.map((code) => (
-                        <tr key={code.code}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {code.email}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {code.code}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {code.usedCount}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {code.usageLimit}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button
-                              onClick={() => handleDeleteCode(code.code)}
-                              className="text-red-600 hover:text-red-900"
-                            >
-                              Törlés
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'customCode' && (
-            <div className="bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">
-                Egyedi Kód Generáló
-              </h2>
-              <form onSubmit={handleCustomCodeSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    value={customCodeForm.email}
-                    onChange={(e) => setCustomCodeForm(prev => ({ ...prev, email: e.target.value }))}
-                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Kategóriák
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => {
-                          setCustomCodeForm(prev => ({
-                            ...prev,
-                            categories: prev.categories.includes(key)
-                              ? prev.categories.filter(c => c !== key)
-                              : [...prev.categories, key]
-                          }));
-                        }}
-                        className={`px-4 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ${
-                          customCodeForm.categories.includes(key)
-                            ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        {label as string}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="usageLimit" className="block text-sm font-medium text-gray-700">
-                      Használati Limit
-                    </label>
-                    <input
-                      type="number"
-                      id="usageLimit"
-                      min="1"
-                      required
-                      value={customCodeForm.usageLimit}
-                      onChange={(e) => setCustomCodeForm(prev => ({ ...prev, usageLimit: parseInt(e.target.value) }))}
-                      className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    disabled={isGeneratingCode}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-                  >
-                    {isGeneratingCode ? 'Generálás...' : 'Kód Generálása'}
-                  </button>
-                </div>
-              </form>
             </div>
           )}
 

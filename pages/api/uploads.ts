@@ -113,39 +113,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     });
 
-    // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'category', 'country', 'city', 'postalCode', 'street'];
-    const missingFields = requiredFields.filter(field => !fields[field]?.[0]);
-    
-    if (missingFields.length > 0) {
-      console.error('Missing required fields:', missingFields);
-      return res.status(400).json({ 
-        message: 'Hiányzó kötelező mezők', 
-        missingFields 
-      });
-    }
-
-    // Validate prices if both are provided
-    const minPrice = fields.minPrice?.[0];
-    const maxPrice = fields.maxPrice?.[0];
-    if (minPrice && maxPrice && parseInt(maxPrice) <= parseInt(minPrice)) {
-      console.error('Invalid price range:', { minPrice, maxPrice });
-      return res.status(400).json({ 
-        message: 'A maximális árnak nagyobbnak kell lennie a minimális árnál'
-      });
-    }
-
     // Connect to database
-    client = await connectToDatabase();
+    const client = await connectToDatabase();
     const db = client.db('sosbeauty');
 
     const category = fields.category?.[0];
-    // Since your code document doesn't have allowedCategories, let's make it work with any category for now
-    // TODO: Add allowedCategories to your code documents if you want to restrict categories
-    // if (!codeDoc.allowedCategories.includes(category)) {
-    //   console.error('Invalid category for code:', { code: accessCode, category, allowedCategories: codeDoc.allowedCategories });
-    //   return res.status(400).json({ message: 'A kód nem érvényes erre a kategóriára' });
-    // }
 
     // Validate file counts and sizes
     const imageFiles = Array.isArray(files.images) ? files.images : files.images ? [files.images] : [];
@@ -212,31 +184,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Create upload document
     const upload = {
-      name: fields.name?.[0],
-      email: fields.email?.[0],
-      phone: fields.phone?.[0],
+      name: fields.name?.[0] || '',
+      email: fields.email?.[0] || '',
+      phone: fields.phone?.[0] || '',
       instagram: fields.instagram?.[0] || '',
       facebook: fields.facebook?.[0] || '',
       tiktok: fields.tiktok?.[0] || '',
-      category,
+      category: category || '',
       minPrice: fields.minPrice?.[0] || '',
       maxPrice: fields.maxPrice?.[0] || '',
-      country: fields.country?.[0],
-      city: fields.city?.[0],
-      postalCode: fields.postalCode?.[0],
-      street: fields.street?.[0],
+      country: fields.country?.[0] || '',
+      city: fields.city?.[0] || '',
+      postalCode: fields.postalCode?.[0] || '',
+      street: fields.street?.[0] || '',
       houseNumber: fields.houseNumber?.[0] || '',
       levelDoor: fields.levelDoor?.[0] || '',
       coordinates: fields.latitude?.[0] && fields.longitude?.[0] ? {
-        lat: parseFloat(fields.latitude[0]),
-        lng: parseFloat(fields.longitude[0])
+        lat: parseFloat(fields.latitude[0] || '0'),
+        lng: parseFloat(fields.longitude[0] || '0')
       } : null,
       images: images.map((image, index) => ({
         ...image,
-        isMain: index === parseInt(fields.mainImageIndex?.[0] || '0', 10)
+        isMain: index === parseInt(fields.mainImageIndex?.[0] || '0')
       })),
       videos,
-      status: 'pending',
       success: false,
       createdAt: new Date(),
     };
@@ -251,6 +222,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({ message: 'Upload successful', id: result.insertedId });
   } catch (error: any) {
     console.error('Upload error:', error);
+
     res.status(500).json({ 
       message: error.message || 'A feltöltés sikertelen',
       error: process.env.NODE_ENV === 'development' ? error.stack : undefined

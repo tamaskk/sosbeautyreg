@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import type { AddressMapHandle } from '@/components/AddressMap';
+import ComingSoon from '@/components/ComingSoon';
 
 const AddressMap = dynamic(() => import('@/components/AddressMap'), {
   ssr: false,
@@ -304,457 +305,462 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">SOS Beauty Feltöltő Űrlap</h1>
-            <p className="text-gray-600 mb-4">Jelentkezd be szépségipari szolgáltatásoddal</p>
-            <div className="bg-indigo-50 rounded-lg p-4 inline-block">
-              <p className="text-indigo-700 mb-2">
-                Szükséged van hozzáférési kódra a szépségipari szolgáltatásod beküldéséhez?
-              </p>
-              <Link
-                href="/register"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Hozzáférési Kód Kérése
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Személyes Adatok</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Név
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  placeholder="Üzlet neve vagy a te neved"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  placeholder="pelda@email.com"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Telefon
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  id="phone"
-                  required
-                  placeholder="+36 20 123 4567"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="accessCode" className="block text-sm font-medium text-gray-700">
-                  Hozzáférési Kód
-                </label>
-                <input
-                  type="text"
-                  name="accessCode"
-                  id="accessCode"
-                  required
-                  placeholder="8 karakteres kód"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">
-                  Instagram
-                </label>
-                <input
-                  type="text"
-                  name="instagram"
-                  id="instagram"
-                  placeholder="@felhasznalonev"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="facebook" className="block text-sm font-medium text-gray-700">
-                  Facebook
-                </label>
-                <input
-                  type="text"
-                  name="facebook"
-                  id="facebook"
-                  placeholder="facebook.com/felhasznalonev"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="tiktok" className="block text-sm font-medium text-gray-700">
-                  TikTok
-                </label>
-                <input
-                  type="text"
-                  name="tiktok"
-                  id="tiktok"
-                  placeholder="@felhasznalonev"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Szolgáltatás Adatok</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                  Kategória
-                </label>
-                <select
-                  name="category"
-                  id="category"
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+    <>
+      <ComingSoon />
+      <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">SOS Beauty Feltöltő Űrlap</h1>
+              <p className="text-gray-600 mb-4">Jelentkezd be szépségipari szolgáltatásoddal</p>
+              <div className="bg-indigo-50 rounded-lg p-4 inline-block">
+                <p className="text-indigo-700 mb-2">
+                  Szükséged van hozzáférési kódra a szépségipari szolgáltatásod beküldéséhez?
+                </p>
+                <Link
+                  href="/register"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <option value="">Válassz kategóriát</option>
-                  <option value="eyelash">Pillás</option>
-                  <option value="nails">Körmös</option>
-                  <option value="female_hair">Női fodrász</option>
-                  <option value="makeup">Sminkes</option>
-                  <option value="lip_filler">Szájfeltöltés</option>
-                  <option value="male_hair">Férfi fodrász</option>
-                  <option value="laser_hair">Lézeres szőrtelenítés</option>
-                  <option value="cosmetologist">Kozmetikus</option>
-                  <option value="botox">Botox</option>
-                  <option value="permanent_makeup">Sminktetoválás</option>
-                  <option value="waxing">Gyanta</option>
-                  <option value="brow_lash">Szemöldök és szempilla</option>
-                  <option value="hair_extension">Hajhosszabbítás</option>
-                  <option value="pedicure">Pedikűr</option>
-                  <option value="fitness">Fitness/mozgás</option>
-                  <option value="tiktok">TikTok</option>
-                </select>
+                  Hozzáférési Kód Kérése
+                </Link>
               </div>
+            </div>
 
-              <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white shadow rounded-lg p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Személyes Adatok</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700">
-                    Minimális Ár
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    Név
                   </label>
                   <input
-                    type="number"
-                    name="minPrice"
-                    id="minPrice"
-                    placeholder="1000"
+                    type="text"
+                    name="name"
+                    id="name"
+                    required
+                    placeholder="Üzlet neve vagy a te neved"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700">
-                    Maximális Ár
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    Email
                   </label>
                   <input
-                    type="number"
-                    name="maxPrice"
-                    id="maxPrice"
-                    placeholder="5000"
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    placeholder="pelda@email.com"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                    Telefon
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    required
+                    placeholder="+36 20 123 4567"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="accessCode" className="block text-sm font-medium text-gray-700">
+                    Hozzáférési Kód
+                  </label>
+                  <input
+                    type="text"
+                    name="accessCode"
+                    id="accessCode"
+                    required
+                    placeholder="8 karakteres kód"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">
+                    Instagram
+                  </label>
+                  <input
+                    type="text"
+                    name="instagram"
+                    id="instagram"
+                    placeholder="@felhasznalonev"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="facebook" className="block text-sm font-medium text-gray-700">
+                    Facebook
+                  </label>
+                  <input
+                    type="text"
+                    name="facebook"
+                    id="facebook"
+                    placeholder="facebook.com/felhasznalonev"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="tiktok" className="block text-sm font-medium text-gray-700">
+                    TikTok
+                  </label>
+                  <input
+                    type="text"
+                    name="tiktok"
+                    id="tiktok"
+                    placeholder="@felhasznalonev"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
                   />
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Cím Adatok</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                  Ország
-                </label>
-                <input
-                  type="text"
-                  name="country"
-                  id="country"
-                  required
-                  placeholder="Magyarország"
-                  value={address.country}
-                  onChange={handleAddressChange}
-                  onKeyDown={handleAddressKeyDown}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
+            <div className="bg-white shadow rounded-lg p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Szolgáltatás Adatok</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                    Kategória
+                  </label>
+                  <select
+                    name="category"
+                    id="category"
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  >
+                    <option value="">Válassz kategóriát</option>
+                    <option value="eyelash">Pillás</option>
+                    <option value="nails">Körmös</option>
+                    <option value="female_hair">Női fodrász</option>
+                    <option value="makeup">Sminkes</option>
+                    <option value="lip_filler">Szájfeltöltés</option>
+                    <option value="male_hair">Férfi fodrász</option>
+                    <option value="laser_hair">Lézeres szőrtelenítés</option>
+                    <option value="cosmetologist">Kozmetikus</option>
+                    <option value="botox">Botox</option>
+                    <option value="permanent_makeup">Sminktetoválás</option>
+                    <option value="waxing">Gyanta</option>
+                    <option value="brow_lash">Szemöldök és szempilla</option>
+                    <option value="hair_extension">Hajhosszabbítás</option>
+                    <option value="pedicure">Pedikűr</option>
+                    <option value="fitness">Fitness/mozgás</option>
+                    <option value="tiktok">TikTok</option>
+                  </select>
+                </div>
 
-              <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                  Város
-                </label>
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  required
-                  placeholder="Budapest"
-                  value={address.city}
-                  onChange={handleAddressChange}
-                  onKeyDown={handleAddressKeyDown}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700">
+                      Minimális Ár
+                    </label>
+                    <input
+                      type="number"
+                      name="minPrice"
+                      id="minPrice"
+                      placeholder="1000"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                    />
+                  </div>
 
-              <div>
-                <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-                  Irányítószám
-                </label>
-                <input
-                  type="text"
-                  name="postalCode"
-                  id="postalCode"
-                  required
-                  placeholder="1234"
-                  value={address.postalCode}
-                  onChange={handleAddressChange}
-                  onKeyDown={handleAddressKeyDown}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="street" className="block text-sm font-medium text-gray-700">
-                  Utca
-                </label>
-                <input
-                  type="text"
-                  name="street"
-                  id="street"
-                  required
-                  placeholder="Példa utca"
-                  value={address.street}
-                  onChange={handleAddressChange}
-                  onKeyDown={handleAddressKeyDown}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="houseNumber" className="block text-sm font-medium text-gray-700">
-                  Házszám
-                </label>
-                <input
-                  type="text"
-                  name="houseNumber"
-                  id="houseNumber"
-                  required
-                  placeholder="123"
-                  value={address.houseNumber}
-                  onChange={handleAddressChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="levelDoor" className="block text-sm font-medium text-gray-700">
-                  Emelet, ajtó
-                </label>
-                <input
-                  type="text"
-                  name="levelDoor"
-                  id="levelDoor"
-                  placeholder="1. emelet 12. ajtó"
-                  value={address.levelDoor}
-                  onChange={handleAddressChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
-                />
+                  <div>
+                    <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700">
+                      Maximális Ár
+                    </label>
+                    <input
+                      type="number"
+                      name="maxPrice"
+                      id="maxPrice"
+                      placeholder="5000"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
-            {address.country && address.city && address.postalCode && address.street && address.houseNumber && (
-              <div className="relative">
-              <AddressMap
-                  ref={addressMapRef}
-                country={address.country}
-                city={address.city}
-                postalCode={address.postalCode}
-                street={address.street}
-                houseNumber={address.houseNumber}
-                onCoordinatesUpdate={handleCoordinatesUpdate}
-                  onFetchStart={() => setIsFetchingCoordinates(true)}
-                />
-                {isFetchingCoordinates && (
-                  <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
-                    <div className="text-sm text-gray-600">Koordináták betöltése...</div>
+            <div className="bg-white shadow rounded-lg p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Cím Adatok</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                    Ország
+                  </label>
+                  <input
+                    type="text"
+                    name="country"
+                    id="country"
+                    required
+                    placeholder="Magyarország"
+                    value={address.country}
+                    onChange={handleAddressChange}
+                    onKeyDown={handleAddressKeyDown}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                    Város
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    required
+                    placeholder="Budapest"
+                    value={address.city}
+                    onChange={handleAddressChange}
+                    onKeyDown={handleAddressKeyDown}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+                    Irányítószám
+                  </label>
+                  <input
+                    type="text"
+                    name="postalCode"
+                    id="postalCode"
+                    required
+                    placeholder="1234"
+                    value={address.postalCode}
+                    onChange={handleAddressChange}
+                    onKeyDown={handleAddressKeyDown}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="street" className="block text-sm font-medium text-gray-700">
+                    Utca
+                  </label>
+                  <input
+                    type="text"
+                    name="street"
+                    id="street"
+                    required
+                    placeholder="Példa utca"
+                    value={address.street}
+                    onChange={handleAddressChange}
+                    onKeyDown={handleAddressKeyDown}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="houseNumber" className="block text-sm font-medium text-gray-700">
+                    Házszám
+                  </label>
+                  <input
+                    type="text"
+                    name="houseNumber"
+                    id="houseNumber"
+                    required
+                    placeholder="123"
+                    value={address.houseNumber}
+                    onChange={handleAddressChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="levelDoor" className="block text-sm font-medium text-gray-700">
+                    Emelet, ajtó
+                  </label>
+                  <input
+                    type="text"
+                    name="levelDoor"
+                    id="levelDoor"
+                    placeholder="1. emelet 12. ajtó"
+                    value={address.levelDoor}
+                    onChange={handleAddressChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                  />
+                </div>
+              </div>
+
+              {address.country && address.city && address.postalCode && address.street && address.houseNumber && (
+                <div className="relative">
+                <AddressMap
+                    ref={addressMapRef}
+                  country={address.country}
+                  city={address.city}
+                  postalCode={address.postalCode}
+                  street={address.street}
+                  houseNumber={address.houseNumber}
+                  onCoordinatesUpdate={handleCoordinatesUpdate}
+                    onFetchStart={() => setIsFetchingCoordinates(true)}
+                  />
+                  {isFetchingCoordinates && (
+                    <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
+                      <div className="text-sm text-gray-600">Koordináták betöltése...</div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white shadow rounded-lg p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">Média Feltöltés</h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Maximum {MAX_IMAGES} kép (egyenként max {MAX_IMAGE_SIZE / (1024 * 1024)}MB) és {MAX_VIDEOS} videó (egyenként max {MAX_VIDEO_SIZE / (1024 * 1024)}MB)
+              </p>
+              
+              {/* Image Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Képek ({selectedImages.length}/{MAX_IMAGES})
+                </label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
+                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <div className="flex text-sm text-gray-600">
+                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                        <span>Kattints ide a képek feltöltéséhez</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={(e) => handleFileChange(e, 'image')}
+                          className="sr-only"
+                          disabled={selectedImages.length >= MAX_IMAGES}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                {selectedImages.length > 0 && (
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Képek ({selectedImages.length}/{MAX_IMAGES})
+                    </label>
+                    <div className="grid grid-cols-2 gap-4">
+                      {selectedImages.map((file, index) => (
+                        <div key={index} className="relative group">
+                          <div 
+                            className={`relative cursor-pointer ${mainImageIndex === index ? 'ring-2 ring-indigo-500' : ''}`}
+                            onClick={() => handleMainImageSelect(index)}
+                          >
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Preview ${index + 1}`}
+                              className="h-32 w-full object-cover rounded"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center">
+                              {mainImageIndex === index && (
+                                <div className="bg-indigo-500 text-white px-2 py-1 rounded-full text-xs">
+                                  Fő kép
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(file, 'image', index)}
+                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 w-7 h-7 text-center flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            ✕
+                          </button>
+                          <div className="text-xs text-gray-500 mt-1 flex justify-between items-center">
+                            <span>{(file.size / (1024 * 1024)).toFixed(2)}MB</span>
+                            <label className="flex items-center space-x-1 cursor-pointer">
+                              <input
+                                type="radio"
+                                name="mainImage"
+                                checked={mainImageIndex === index}
+                                onChange={() => handleMainImageSelect(index)}
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                              />
+                              <span className="text-xs text-gray-600">Fő kép</span>
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
-            )}
-          </div>
 
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Média Feltöltés</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Maximum {MAX_IMAGES} kép (egyenként max {MAX_IMAGE_SIZE / (1024 * 1024)}MB) és {MAX_VIDEOS} videó (egyenként max {MAX_VIDEO_SIZE / (1024 * 1024)}MB)
-            </p>
-            
-            {/* Image Upload */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Képek ({selectedImages.length}/{MAX_IMAGES})
-              </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div className="space-y-1 text-center">
-                  <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <div className="flex text-sm text-gray-600">
-                    <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      <span>Kattints ide a képek feltöltéséhez</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={(e) => handleFileChange(e, 'image')}
-                        className="sr-only"
-                        disabled={selectedImages.length >= MAX_IMAGES}
-                      />
-                    </label>
+              {/* Video Upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Videók ({selectedVideos.length}/{MAX_VIDEOS})
+                </label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
+                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <div className="flex text-sm text-gray-600">
+                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                        <span>Kattints ide a videók feltöltéséhez</span>
+                        <input
+                          type="file"
+                          accept="video/*"
+                          multiple
+                          onChange={(e) => handleFileChange(e, 'video')}
+                          className="sr-only"
+                          disabled={selectedVideos.length >= MAX_VIDEOS}
+                        />
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {selectedImages.length > 0 && (
-                <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Képek ({selectedImages.length}/{MAX_IMAGES})
-                  </label>
-                  <div className="grid grid-cols-2 gap-4">
-                    {selectedImages.map((file, index) => (
+                {selectedVideos.length > 0 && (
+                  <div className="mt-4 grid grid-cols-2 gap-4">
+                    {selectedVideos.map((file, index) => (
                       <div key={index} className="relative group">
-                        <div 
-                          className={`relative cursor-pointer ${mainImageIndex === index ? 'ring-2 ring-indigo-500' : ''}`}
-                          onClick={() => handleMainImageSelect(index)}
-                        >
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={`Preview ${index + 1}`}
-                            className="h-32 w-full object-cover rounded"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center">
-                            {mainImageIndex === index && (
-                              <div className="bg-indigo-500 text-white px-2 py-1 rounded-full text-xs">
-                                Fő kép
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                        <video
+                          src={URL.createObjectURL(file)}
+                          className="h-32 w-full object-cover rounded"
+                          controls
+                        />
                         <button
                           type="button"
-                          onClick={() => removeFile(file, 'image', index)}
-                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 w-7 h-7 text-center flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          disabled={true}
+                          onClick={() => removeFile(file, 'video', 0)}
+                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                           ✕
                         </button>
-                        <div className="text-xs text-gray-500 mt-1 flex justify-between items-center">
-                          <span>{(file.size / (1024 * 1024)).toFixed(2)}MB</span>
-                          <label className="flex items-center space-x-1 cursor-pointer">
-                            <input
-                              type="radio"
-                              name="mainImage"
-                              checked={mainImageIndex === index}
-                              onChange={() => handleMainImageSelect(index)}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <span className="text-xs text-gray-600">Fő kép</span>
-                          </label>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {(file.size / (1024 * 1024)).toFixed(2)}MB
                         </div>
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-            </div>
-
-            {/* Video Upload */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Videók ({selectedVideos.length}/{MAX_VIDEOS})
-              </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div className="space-y-1 text-center">
-                  <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <div className="flex text-sm text-gray-600">
-                    <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      <span>Kattints ide a videók feltöltéséhez</span>
-                      <input
-                        type="file"
-                        accept="video/*"
-                        multiple
-                        onChange={(e) => handleFileChange(e, 'video')}
-                        className="sr-only"
-                        disabled={selectedVideos.length >= MAX_VIDEOS}
-                      />
-                    </label>
-                  </div>
-                </div>
+                )}
               </div>
-              {selectedVideos.length > 0 && (
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  {selectedVideos.map((file, index) => (
-                    <div key={index} className="relative group">
-                      <video
-                        src={URL.createObjectURL(file)}
-                        className="h-32 w-full object-cover rounded"
-                        controls
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeFile(file, 'video', 0)}
-                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        ✕
-                      </button>
-                      <div className="text-xs text-gray-500 mt-1">
-                        {(file.size / (1024 * 1024)).toFixed(2)}MB
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
-          </div>
 
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {isSubmitting ? 'Beküldés...' : 'Beküldés'}
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                // disabled={isSubmitting}
+                disabled={true}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              >
+                {isSubmitting ? 'Beküldés...' : 'Beküldés'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 } 

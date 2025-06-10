@@ -232,7 +232,8 @@ const AddressMap = forwardRef<AddressMapHandle, AddressMapProps>(({
         </span>
         <button
           onClick={searchAddress}
-          disabled={isSearching || !country || !city || !postalCode || !street || !houseNumber}
+          // disabled={isSearching || !country || !city || !postalCode || !street || !houseNumber}
+          disabled={true}
           className={`flex items-center gap-2 px-4 py-2 rounded-md text-white transition-colors text-sm ${
             isSearching || !country || !city || !postalCode || !street || !houseNumber
               ? 'bg-gray-400 cursor-not-allowed'

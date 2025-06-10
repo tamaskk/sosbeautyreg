@@ -154,12 +154,14 @@ export default function CookieConsent() {
 
             <div className="mt-6 flex justify-end space-x-4">
               <button
+                disabled={true}
                 onClick={() => setShowSettings(false)}
                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
               >
                 Mégse
               </button>
               <button
+                disabled={true}
                 onClick={() => savePreferences(preferences)}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
               >

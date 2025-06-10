@@ -84,7 +84,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  let client;
+      // Connect to database
+      const client = await connectToDatabase();
+      const db = client.db('sosbeauty');
   try {
     console.log('Starting file upload process...');
 
@@ -112,10 +114,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         resolve([fields, files]);
       });
     });
-
-    // Connect to database
-    const client = await connectToDatabase();
-    const db = client.db('sosbeauty');
 
     const category = fields.category?.[0];
 
@@ -228,8 +226,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       error: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   } finally {
-    if (client) {
-      await client.close();
-    }
+    await client?.close();
   }
 } 

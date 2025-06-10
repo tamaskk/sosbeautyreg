@@ -12,7 +12,7 @@ export default function ComingSoon() {
         </p>
         <div className="bg-indigo-600 text-white p-4 rounded-lg inline-block">
           <p className="text-lg">
-            Várható indulás: 2024. április
+            Várható indulás: 2025. június
           </p>
         </div>
       </div>
